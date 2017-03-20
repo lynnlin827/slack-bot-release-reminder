@@ -8,7 +8,6 @@ channelId = 'channel-id'
 bot = 'bot-id'
 releaseMessage = 'I deployed production today'
 
-
 def in_today(timestamp):
     begin = time.mktime(datetime.datetime.combine(datetime.date.today(), datetime.time.min).timetuple())
     end = time.mktime(datetime.datetime.combine(datetime.date.today(), datetime.time.max).timetuple())
@@ -29,7 +28,7 @@ if client.rtm_connect():
         for event in response:
             print(event)
             if event['type'] == 'message':
-                if '@{}'.format(bot) in event['text']:
+                if 'text' in event and '@{}'.format(bot) in event['text']:
                     messages = client.api_call(
                         'groups.history',
                         channel=channelId,
